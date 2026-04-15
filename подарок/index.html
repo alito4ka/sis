@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #ffe4ec;
+    text-align: center;
+}
+
+/* экраны */
+.screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active { display: flex; }
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    background: #ff9ecb;
+    color: white;
+    cursor: pointer;
+}
+
+/* текст */
+.main-text {
+    font-size: 26px;
+    max-width: 300px;
+}
+
+/* неон */
+.neon {
+    font-size: 35px;
+    color: hotpink;
+    text-shadow:
+        -2px -2px 0 white,
+        2px -2px 0 white,
+        -2px 2px 0 white,
+        2px 2px 0 white,
+        0 0 10px hotpink,
+        0 0 20px hotpink;
+}
+
+/* фото */
+.photo {
+    width: 200px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+/* подарки */
+.gift-btn {
+    font-size: 30px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* конверты */
+.envelope {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px;
+    box-shadow: 0 0 10px pink;
+    cursor: pointer;
+    width: 220px;
+}
+
+.hidden-text {
+    display: none;
+    margin-top: 10px;
+    font-size: 18px;
+    color: hotpink;
+    font-weight: bold;
+}
+.gift {
+    position: absolute;
+    font-size: 55px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+.gift:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+</style>
+</head>
+
+<body>
+
+<!-- экран 1 -->
+<div class="screen active" id="s1">
+    <div class="main-text">иногда мы не говорим важные вещи вслух...</div>
+    <button onclick="next('s1','s2')">но я скажу</button>
+</div>
+
+<!-- экран 2 -->
+<div class="screen" id="s2">
+    <div class="main-text">я просто хочу, чтобы ты знала...</div>
+    <button onclick="next('s2','s3')">что?</button>
+</div>
+
+<!-- экран 3 -->
+<div class="screen" id="s3">
+    <div class="neon">я помню, что у меня есть ты 💖</div>
+    <div class="neon">и я тебя очень люблю</div>
+    <button onclick="next('s3','s4')">дальше</button>
+</div>
+
+<!-- экран 4 (фото) -->
+<div class="screen" id="s4">
+    <div class="neon">смотри какая ты красивая!(ЖМАКАТЬ НА ПОДАРОК НАДА)</div>
+
+    <!-- подарки -->
+    <div class="gift" style="top:60%; left:50%;" onclick="openPhoto(this, 'sis1.jpg', true)">🎁</div>
+    <div class="gift" style="top:40%; left:20%;" onclick="openPhoto(this, 'sis2.jpg')">🎁</div>
+    <div class="gift" style="top:40%; left:80%;" onclick="openPhoto(this, 'sis3.jpg')">🎁</div>
+
+    <button style="position:absolute; bottom:40px;" onclick="next('s4','s5')">
+        но сейчас не об этом!
+    </button>
+</div>
+
+<!-- экран 5 (конверты) -->
+<div class="screen" id="s5">
+
+    <div onclick="openEnvelope(this)" class="envelope">
+        💌 открой
+        <div class="hidden-text">ты очень особенная для меня 💖</div>
+    </div>
+
+    <div onclick="openEnvelope(this)" class="envelope">
+        💌 открой
+        <div class="hidden-text">с тобой всегда спокойно и тепло</div>
+    </div>
+
+    <div onclick="openEnvelope(this)" class="envelope">
+        💌 открой
+        <div class="hidden-text">я очень ценю, что ты у меня есть</div>
+    </div>
+
+    <div onclick="openEnvelope(this)" class="envelope">
+        💌 открой
+        <div class="hidden-text">ты делаешь мою жизнь лучше</div>
+    </div>
+
+    <div onclick="openEnvelope(this)" class="envelope">
+        💌 открой
+        <div class="hidden-text">я тебя очень люблю 💕</div>
+    </div>
+
+</div>
+
+<script>
+function next(a,b){
+    document.getElementById(a).classList.remove("active");
+    document.getElementById(b).classList.add("active");
+}
+
+function openEnvelope(el){
+    let text = el.querySelector(".hidden-text");
+    text.style.display = "block";
+}
+function openPhoto(el, src, big=false){
+    let img = document.createElement("img");
+    img.src = src;
+
+    img.style.position = "absolute";
+    img.style.borderRadius = "20px";
+    img.style.transform = "translate(-50%, -50%)";
+
+    if(big){
+        img.style.width = "320px";
+    } else {
+        img.style.width = "220px";
+    }
+
+    img.style.top = el.style.top;
+    img.style.left = el.style.left;
+
+    document.getElementById("s4").appendChild(img);
+    el.remove();
+}
+</script>
+
+</body>
+</html>
